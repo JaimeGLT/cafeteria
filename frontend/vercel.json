@@ -1,0 +1,27 @@
+{
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "https://kafeyanaapi20260321224446-bqdjh9acame8gydt.centralus-01.azurewebsites.net/api/$1"
+    },
+    {
+      "src": "/graphql/(.*)",
+      "dest": "https://kafeyanaapi20260321224446-bqdjh9acame8gydt.centralus-01.azurewebsites.net/graphql/$1"
+    },
+    {
+      "src": "/graphql",
+      "dest": "https://kafeyanaapi20260321224446-bqdjh9acame8gydt.centralus-01.azurewebsites.net/graphql/"
+    },
+    {
+      "src": "/hubs/(.*)",
+      "dest": "https://kafeyanaapi20260321224446-bqdjh9acame8gydt.centralus-01.azurewebsites.net/hubs/$1"
+    },
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
+}
