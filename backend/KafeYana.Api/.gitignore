@@ -4,5 +4,4 @@ obj/
 *.pdb
 *.exe
 
-appsettings.json
 appsettings.Development.json
