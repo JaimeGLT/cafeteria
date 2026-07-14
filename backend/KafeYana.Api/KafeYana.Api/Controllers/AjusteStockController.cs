@@ -49,11 +49,7 @@ namespace KafeYana.Api.Controllers
 
 
 
-            var nombre = User.Identity?.Name;
-
-
-
-            if (nombre is null) return Unauthorized(new { message = "Usuario no identificado" });
+            var nombre = "Sistema";
 
 
 
@@ -100,15 +96,11 @@ namespace KafeYana.Api.Controllers
 
 
 
-            var nombre = User.Identity?.Name;
+            var nombre = "Sistema";
 
 
 
             if (Insumo is null) return NotFound("Inusmo no encontrado");
-
-
-
-            if (nombre == null) return Unauthorized(new { message = "Usuario no identificado" });
 
 
 
@@ -166,11 +158,7 @@ namespace KafeYana.Api.Controllers
 
 
 
-            var nombre = User.Identity?.Name;
-
-            if (nombre is null)
-
-                return Unauthorized(new { message = "Usuario no identificado" });
+            var nombre = "Sistema";
 
 
 

@@ -46,9 +46,7 @@ namespace KafeYana.Api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var nombreUsuario = User.Identity?.Name;
-            if (string.IsNullOrEmpty(nombreUsuario))
-                return Unauthorized(new { message = "Usuario no identificado" });
+            var nombreUsuario = "Sistema";
 
             var envioSiat = await _subVenta.FacturarSubVentaAsync(id, datos, nombreUsuario, ct);
 

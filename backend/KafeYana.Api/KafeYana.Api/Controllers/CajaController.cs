@@ -22,9 +22,7 @@ namespace KafeYana.Api.Controllers
             if (existeCaja)
                 return BadRequest(new { message = "Ya existe una caja registrada" });
 
-            var nombreUsuario = User.Identity?.Name;
-            if (string.IsNullOrEmpty(nombreUsuario))
-                return Unauthorized(new { message = "Usuario no identificado" });
+            var nombreUsuario = "Sistema";
 
             var numeroCaja = await _db.cajahistorial.ContarHistorial() + 1;
 
@@ -75,9 +73,7 @@ namespace KafeYana.Api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var nombreUsuario = User.Identity?.Name;
-            if (string.IsNullOrEmpty(nombreUsuario))
-                return Unauthorized(new { message = "Usuario no identificado" });
+            var nombreUsuario = "Sistema";
 
             var caja = await _db.cajas.ObtenerCajaConMovimientos();
             if (caja is null)

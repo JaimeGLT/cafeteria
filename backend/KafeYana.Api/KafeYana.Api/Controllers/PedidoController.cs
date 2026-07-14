@@ -23,9 +23,7 @@ namespace KafeYana.Api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var nombreUsuario = User.Identity?.Name;
-            if (string.IsNullOrEmpty(nombreUsuario))
-                return Unauthorized(new { message = "Usuario no identificado" });
+            var nombreUsuario = "Sistema";
 
             var caja = (Caja)HttpContext.Items["Caja"]!;
             var cobro = await _cobroPedido.CobrarPedidoActivoAsync(datos, nombreUsuario, caja);
