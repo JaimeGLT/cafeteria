@@ -37,8 +37,7 @@ const PurchasesReportPage  = lazy(() => import('./pages/reports/PurchasesReportP
 const CashReportPage       = lazy(() => import('./pages/reports/CashReportPage'));
 const DailyCashReportPage       = lazy(() => import('./pages/reports/DailyCashReportPage'));
 const MonthlyProductsReportPage = lazy(() => import('./pages/reports/MonthlyProductsReportPage'));
-const SettingsIndexPage    = lazy(() => import('./pages/settings/SettingsIndexPage').then(m => ({ default: m.SettingsIndexPage })));
-const SettingsUsersPage    = lazy(() => import('./pages/settings/SettingsUsersPage').then(m => ({ default: m.SettingsUsersPage })));
+const SettingsQRPage       = lazy(() => import('./pages/settings/SettingsQRPage').then(m => ({ default: m.SettingsQRPage })));
 const InsumosPage          = lazy(() => import('./pages/recipes/InsumosPage'));
 const RecetasPage          = lazy(() => import('./pages/recipes/RecetasPage'));
 
@@ -101,9 +100,7 @@ function App() {
                       <Route path="/recipes/recetas" element={<RecetasPage />} />
 
                       {/* Settings */}
-                      <Route path="/settings"         element={<SettingsIndexPage />} />
-                      <Route path="/settings/profile" element={<SettingsIndexPage />} />
-                      <Route path="/settings/users"   element={<SettingsUsersPage />} />
+                      <Route path="/settings" element={<SettingsQRPage />} />
 
                       {/* Fallback */}
                       <Route path="*" element={<Navigate to="/" replace />} />

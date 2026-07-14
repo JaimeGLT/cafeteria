@@ -14,7 +14,6 @@ using KafeYana.Domain.TiposDeDatos;
 using KafeYana.Infrastructure.Data;
 using KafeYana.Infrastructure.Data.Repositorio;
 using KafeYana.Infrastructure.Options;
-using KafeYana.Infrastructure.Procesos;
 using KafeYana.Infrastructure.Servicios;
 using KafeYana.Infrastructure.Servicios.PromocionesPermanentes;
 using KafeYana.Infrastructure.Servicios.PromocionesTemporada;
@@ -102,7 +101,6 @@ builder.Services.AddGraphQLServer()
     .AddTypeExtension<ElaboradoQuery>()
     .AddTypeExtension<InsumoQuery>()
     .AddTypeExtension<RecetaQuery>()
-    .AddTypeExtension<UsuarioQuery>()
     .AddTypeExtension<MesaQuery>()
     .AddTypeExtension<VentaQuery>()
     .AddTypeExtension<ProductoMovimientosQuery>()
@@ -182,9 +180,6 @@ builder.Services.AddSingleton<IR2StorageService, R2StorageService>();
 builder.Services.AddScoped<IProductoImagenService, ProductoImagenService>();
 builder.Services.AddScoped<IQrImagenService, QrImagenService>();
 
-builder.Services.AddScoped<IAuthTokenProcesador, AuthTokenProcesador>();
-builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
-builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IVentaServices, VentaServices>();
 builder.Services.AddScoped<ICobroPedidoService, CobroPedidoService>();
 builder.Services.AddScoped<ISubVentaService, SubVentaService>();

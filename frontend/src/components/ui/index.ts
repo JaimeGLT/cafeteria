@@ -5,7 +5,6 @@ export { PasswordInput } from './PasswordInput';
 export { Select, MultiSelect, SearchableSelect, AsyncSearchableSelect } from './Select';
 export { Modal, ConfirmModal } from './Modal';
 export { BottomSheet } from './BottomSheet';
-export { UserDetailSheet } from './UserDetailSheet';
 export { Table, Pagination } from './Table';
 export { Card, CardHeader, CardContent, CardFooter } from './Card';
 export { Badge, StatusBadge } from './Badge';
