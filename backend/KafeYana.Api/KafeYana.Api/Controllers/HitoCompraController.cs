@@ -1,4 +1,4 @@
-using KafeYana.Application.Dtos.HitoCompraDtos;
+﻿using KafeYana.Application.Dtos.HitoCompraDtos;
 using KafeYana.Application.Exceptions;
 using KafeYana.Application.IRepositorio;
 using KafeYana.Domain.Entities;
@@ -10,7 +10,6 @@ namespace KafeYana.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = RolesKafe.Admin)]
     public class HitoCompraController(IUnitWork _db) : ControllerBase
     {
         [HttpPost]

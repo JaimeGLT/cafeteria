@@ -1,4 +1,4 @@
-using KafeYana.Application.IRepositorio;
+﻿using KafeYana.Application.IRepositorio;
 using KafeYana.Application.IServicios;
 using KafeYana.Domain.Entities;
 using KafeYana.Domain.TiposDeDatos;
@@ -26,7 +26,6 @@ namespace KafeYana.Api.Controllers
 
         [HttpPost]
         [Consumes("multipart/form-data")]
-        [Authorize(Roles = $"{RolesKafe.Admin}")]
         public async Task<IActionResult> Crear(IFormFile Imagen)
         {
             if (Imagen is null)
@@ -44,7 +43,6 @@ namespace KafeYana.Api.Controllers
 
         [HttpPut]
         [Consumes("multipart/form-data")]
-        [Authorize(Roles = $"{RolesKafe.Admin}")]
         public async Task<IActionResult> Actualizar(IFormFile Imagen)
         {
             if (Imagen is null)
@@ -63,7 +61,6 @@ namespace KafeYana.Api.Controllers
         }
 
         [HttpDelete("eliminar")]
-        [Authorize(Roles = $"{RolesKafe.Admin}")]
         public async Task<IActionResult> Eliminar()
         {
             var registro = await db.configuracionQr.ObtenerUnicaAsync();

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,7 +19,6 @@ namespace KafeYana.Api.GraphQLMap
         /// Ver <see cref="ClienteQuery.Clientes"/> para la motivación (HotChocolate v15
         /// removió <c>[UseOffsetPaging]</c>).
         /// </summary>
-        [Authorize(Roles = new[] { RolesKafe.Admin, RolesKafe.Mesero, RolesKafe.Cajero })]
         public Task<OffsetPage<Venta>> Ventas(
             [Service] IVentaRepositorio _Venta,
             int? skip,
@@ -77,7 +76,6 @@ namespace KafeYana.Api.GraphQLMap
         /// las no facturadas y las con estado SIAT no-validada) — sólo el filtro
         /// <c>where</c> reduce el universo.
         /// </summary>
-        [Authorize(Roles = new[] { RolesKafe.Admin, RolesKafe.Cajero })]
         public async Task<VentasEstadisticas> VentasEstadisticas(
             [Service] IVentaRepositorio _Venta,
             VentasEstadisticasFiltroInput? where,

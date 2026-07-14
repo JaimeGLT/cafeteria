@@ -14,7 +14,6 @@ namespace KafeYana.Api.GraphQLMap
     [ExtendObjectType("Query")]
     public class UsuarioQuery
     {
-        [Authorize]
         public async Task<DtoUsuarioDatos> Me([Service] IUsuarioRepositorio user, ClaimsPrincipal info)
         {
 
@@ -40,7 +39,6 @@ namespace KafeYana.Api.GraphQLMap
             return usaurio;
         }
 
-        [Authorize(Roles = new[] { RolesKafe.Admin })]
         public async Task<IEnumerable<DtoUsuarioDatos>> Usuarios(
             [Service] UserManager<Usuario> _userManager)
         {

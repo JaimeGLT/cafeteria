@@ -1,6 +1,41 @@
 import React, { useRef, useState } from 'react';
-import { X, ImageIcon } from 'lucide-react';
+import { X, ImageIcon, Info } from 'lucide-react';
 import { clsx } from 'clsx';
+
+interface ImageReadOnlyFieldProps {
+  existingUrl?: string;
+  className?: string;
+  square?: boolean;
+}
+
+/** Muestra la imagen ya guardada (si existe) sin permitir subir, cambiar ni eliminar. */
+export const ImageReadOnlyField: React.FC<ImageReadOnlyFieldProps> = ({
+  existingUrl,
+  className,
+  square = false,
+}) => {
+  return (
+    <div className={clsx('w-full space-y-2', className)}>
+      {existingUrl ? (
+        <div className={clsx('relative rounded-xl overflow-hidden border border-coffee-200 bg-coffee-50', square ? 'h-48 w-48 mx-auto' : 'w-full h-32')}>
+          <img src={existingUrl} alt="Imagen del producto" className="w-full h-full object-cover" />
+        </div>
+      ) : (
+        <div className={clsx(
+          'border-2 border-dashed rounded-xl flex flex-col items-center justify-center gap-1.5 border-coffee-200 text-coffee-300',
+          square ? 'h-48 w-48 mx-auto' : 'w-full h-28',
+        )}>
+          <ImageIcon className="h-5 w-5" />
+          <span className="text-xs">Sin imagen</span>
+        </div>
+      )}
+      <p className="flex items-center gap-1.5 text-xs text-coffee-400">
+        <Info className="h-3.5 w-3.5 flex-shrink-0" />
+        Las imágenes no se guardan por el momento.
+      </p>
+    </div>
+  );
+};
 
 interface ImageUploadFieldProps {
   existingUrl?: string;

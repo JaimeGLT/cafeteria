@@ -11,7 +11,6 @@ namespace KafeYana.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = $"{RolesKafe.Admin}")]
     public class OrdenCompraController(IUnitWork _db) : ControllerBase
     {
         [HttpPost]

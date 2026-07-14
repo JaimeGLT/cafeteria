@@ -153,7 +153,6 @@ namespace KafeYana.Api.Controllers
         /// `AnchoCaracteres` (override del ancho de ticket; default 48 = 80mm@FontA).
         /// </summary>
         [HttpPost("imprimir/{ventaId:int}")]
-        [Authorize(Roles = $"{RolesKafe.Admin}, {RolesKafe.Cajero}")]
         public async Task<IActionResult> ImprimirFactura(
             int ventaId,
             [FromBody] DtoImprimirFactura? body,
@@ -180,7 +179,6 @@ namespace KafeYana.Api.Controllers
         /// Solo aplica a ventas emitidas como factura electrónica (Facturado = true).
         /// </summary>
         [HttpPost("anular/{ventaId:int}")]
-        [Authorize(Roles = $"{RolesKafe.Admin}, {RolesKafe.Cajero}")]
         public async Task<IActionResult> AnularFactura(
             int ventaId,
             [FromBody] DtoAnularFactura dto,
@@ -208,7 +206,6 @@ namespace KafeYana.Api.Controllers
         /// Revierte en el SIAT una anulación errónea (EstadoSiat = 950). Solo permitido una vez por factura.
         /// </summary>
         [HttpPost("revertir-anulacion/{ventaId:int}")]
-        [Authorize(Roles = $"{RolesKafe.Admin}, {RolesKafe.Cajero}")]
         public async Task<IActionResult> RevertirAnulacionFactura(int ventaId, CancellationToken ct)
         {
             var reversion = await _facturaSiatReversionAnulacion.RevertirAnulacionVentaAsync(ventaId, ct);
@@ -231,7 +228,6 @@ namespace KafeYana.Api.Controllers
         /// Si ya estaba facturada, reutiliza XmlBase64 y CodigoHash guardados.
         /// </summary>
         [HttpPost("reenviar/{ventaId:int}")]
-        [Authorize(Roles = $"{RolesKafe.Admin}, {RolesKafe.Cajero}")]
         public async Task<IActionResult> ReenviarFactura(
             int ventaId,
             [FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Allow)] DtoDatosFiscalesReenvio? datosFiscales,

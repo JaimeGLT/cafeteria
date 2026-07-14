@@ -43,7 +43,7 @@ export function useUsuarios() {
 
   const createUsuario = useCallback(async (payload: CreateUserPayload): Promise<string | null> => {
     try {
-      await api.post('/Aunth/Registro', {
+      await api.post('/Usuarios/Registro', {
         nombre: payload.nombre.trim(),
         apellido: payload.apellido.trim(),
         email: payload.email.trim(),
@@ -82,7 +82,7 @@ export function useUsuarios() {
 
   const deleteUsuario = useCallback(async (email: string): Promise<string | null> => {
     try {
-      await api.delete(`/Aunth/${encodeURIComponent(email)}`);
+      await api.delete(`/Usuarios/${encodeURIComponent(email)}`);
       return null;
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'No se pudo eliminar el usuario.';
@@ -93,7 +93,7 @@ export function useUsuarios() {
 
   const blockUsuario = useCallback(async (email: string): Promise<string | null> => {
     try {
-      await api.put(`/Aunth/bloquear/${encodeURIComponent(email)}`);
+      await api.put(`/Usuarios/bloquear/${encodeURIComponent(email)}`);
       return null;
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'No se pudo bloquear el usuario.';
@@ -104,7 +104,7 @@ export function useUsuarios() {
 
   const unblockUsuario = useCallback(async (email: string): Promise<string | null> => {
     try {
-      await api.put(`/Aunth/desbloquear/${encodeURIComponent(email)}`);
+      await api.put(`/Usuarios/desbloquear/${encodeURIComponent(email)}`);
       return null;
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'No se pudo desbloquear el usuario.';

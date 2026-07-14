@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using HotChocolate.Authorization;
@@ -12,7 +12,6 @@ namespace KafeYana.Api.GraphQLMap
     [ExtendObjectType("Query")]
     public class HistorialPuntosQuery
     {
-        [Authorize(Roles = new[] { RolesKafe.Admin, RolesKafe.Cajero })]
         public Task<OffsetPage<HistorialPuntos>> HistorialPuntos(
             [Service] IHistorialPuntosRepositorio _historial,
             int? skip,

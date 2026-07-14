@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using HotChocolate.Authorization;
@@ -14,13 +14,11 @@ namespace KafeYana.Api.GraphQLMap
     public class CajaQuery
     {
         [UseProjection]
-        [Authorize(Roles = new[] { RolesKafe.Admin, RolesKafe.Mesero, RolesKafe.Cajero })]
         public async Task<Caja?> Caja([Service] ICajaRepositorio _db)
         {
             return await _db.Query().FirstOrDefaultAsync();
         }
 
-        [Authorize(Roles = new[] { RolesKafe.Admin, RolesKafe.Mesero, RolesKafe.Cajero })]
         public Task<OffsetPage<CajaMovimiento>> CajaMoviminetos(
             ICajaMovimientoRepositorio _db,
             int? skip,

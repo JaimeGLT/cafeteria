@@ -7,7 +7,7 @@ import { toast } from '../ui/Toast';
 import { RecetaStepTwo } from './RecetaStepTwo';
 import { CategoryModal } from '../modals/CategoryModal';
 import { CodigoSinModal } from '../modals/CodigoSinModal';
-import { Button, Input, Select, ImageUploadField } from '../ui';
+import { Button, Input, Select, ImageReadOnlyField } from '../ui';
 import { HelpTooltip } from '../ui/Tooltip';
 import type { Receta, Insumo, ProductDestino } from '../../types';
 import { UNIT_OPTIONS, DEFAULT_UNIT } from '../../data/units';
@@ -42,7 +42,6 @@ export const ElaboradoWizard: React.FC<WizardProps> = ({ isOpen, onClose, onCrea
   const [unit, setUnit] = useState(DEFAULT_UNIT);
   const [preparationType, setPreparationType] = useState<'al_momento' | 'en_lote'>('al_momento');
   const [destino, setDestino] = useState<ProductDestino>('sin_destino');
-  const [imageFile, setImageFile] = useState<File | null>(null);
   const [codigoSin, setCodigoSin] = useState('');
   const [isCodigoSinModalOpen, setIsCodigoSinModalOpen] = useState(false);
   const [localCategories, setLocalCategories] = useState(categories);
@@ -66,7 +65,6 @@ export const ElaboradoWizard: React.FC<WizardProps> = ({ isOpen, onClose, onCrea
     setPreparationType('al_momento');
     setDestino('sin_destino');
     setCodigoSin('');
-    setImageFile(null);
   };
 
   const handleCategoryCreated = async (createdName?: string) => {
@@ -117,7 +115,6 @@ export const ElaboradoWizard: React.FC<WizardProps> = ({ isOpen, onClose, onCrea
       fd.append('CodigoSin', codigoSin.trim());
       const ubicacion = destino === 'barra' ? 'Barra' : destino === 'cocina' ? 'Cocina' : '';
       if (ubicacion) fd.append('Ubicacion', ubicacion);
-      if (imageFile) fd.append('Imagen', imageFile);
       const res = await api.postForm<{ Id: number; Nombre: string; message?: string }>('/Elaborado', fd);
       const id = String(res.Id);
       setNewProductId(id);
@@ -227,7 +224,7 @@ export const ElaboradoWizard: React.FC<WizardProps> = ({ isOpen, onClose, onCrea
               {/* Foto */}
               <div>
                 <label className="text-sm font-medium text-coffee-700 mb-1 block">Foto del producto</label>
-                <ImageUploadField onChange={setImageFile} />
+                <ImageReadOnlyField />
               </div>
 
               {/* Preparation type */}

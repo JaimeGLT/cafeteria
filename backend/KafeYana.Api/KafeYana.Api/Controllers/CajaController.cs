@@ -10,7 +10,6 @@ namespace KafeYana.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = $"{RolesKafe.Admin}, {RolesKafe.Cajero}")]
     public class CajaController(IUnitWork _db) : ControllerBase
     {
         [HttpPost("Abrir")]

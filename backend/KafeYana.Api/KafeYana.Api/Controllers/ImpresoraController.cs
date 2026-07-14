@@ -1,4 +1,4 @@
-using KafeYana.Application.Dtos.ImpresoraDtos;
+﻿using KafeYana.Application.Dtos.ImpresoraDtos;
 using KafeYana.Application.IServicios;
 using KafeYana.Domain.TiposDeDatos;
 using Microsoft.AspNetCore.Authorization;
@@ -8,7 +8,6 @@ namespace KafeYana.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = $"{RolesKafe.Admin}, {RolesKafe.Cajero}, {RolesKafe.Mesero}")]
     public class ImpresoraController(IImpresoraService _impresora) : ControllerBase
     {
         [HttpPost("pedido")]

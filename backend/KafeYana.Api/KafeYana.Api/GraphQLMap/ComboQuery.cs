@@ -1,4 +1,4 @@
-using HotChocolate.Authorization;
+﻿using HotChocolate.Authorization;
 using KafeYana.Api.Helpers;
 using KafeYana.Application.IRepositorio;
 using KafeYana.Domain.Entities.Inventario;
@@ -17,7 +17,6 @@ namespace KafeYana.Api.GraphQLMap
         /// Lista de combos (promociones) con paginación offset y búsqueda opcional.
         /// El filtrado y el orden se aplican directamente sobre el IQueryable antes de paginar.
         /// </summary>
-        [Authorize(Roles = new[] { RolesKafe.Admin, RolesKafe.Mesero, RolesKafe.Cajero })]
         public Task<OffsetPage<Promocion>> Combos(
             [Service] IComboRepositorio _db,
             int? skip,

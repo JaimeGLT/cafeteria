@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using HotChocolate.Authorization;
@@ -17,7 +17,6 @@ namespace KafeYana.Api.GraphQLMap
         /// Lista de categorías con paginación offset, ordenadas por nombre.
         /// El parámetro soloConProductos permite filtrar solo las que tienen al menos un producto.
         /// </summary>
-        [Authorize(Roles = new[] { RolesKafe.Admin, RolesKafe.Mesero, RolesKafe.Cajero })]
         public Task<OffsetPage<Categoria>> Categorias(
             [Service] ICategoriaRepositorio _db,
             int? skip,

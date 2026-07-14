@@ -12,7 +12,6 @@ namespace KafeYana.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = $"{RolesKafe.Admin}")]
     public class VariacionController(IVariacionReposiotorio _db, IUnitWork _base) : ControllerBase
     {
         [HttpPost("Variacion")]

@@ -22,7 +22,6 @@ namespace KafeYana.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = $"{RolesKafe.Admin}, {RolesKafe.Cajero}, {RolesKafe.Mesero}")]
     public class MesaController(IMesaRepositorio _Mesa, IUnitWork _db, ICobroPedidoService _cobroPedido, Detalle_RondaService _detalleRondaService, IRondaPedidoService _rondaPedidoService, IKafeYanaNotificador _notificador, StockPayloadService _stockService) : ControllerBase
     {
         [HttpPost]

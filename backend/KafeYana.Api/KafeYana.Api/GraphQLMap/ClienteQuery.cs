@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using HotChocolate.Authorization;
@@ -13,7 +13,6 @@ namespace KafeYana.Api.GraphQLMap
     [ExtendObjectType("Query")]
     public class ClienteQuery
     {
-        [Authorize(Roles = new[] { RolesKafe.Admin, RolesKafe.Mesero, RolesKafe.Cajero, RolesKafe.Asistente })]
         public Task<OffsetPage<Cliente>> Clientes(
             [Service] IClienteRespositorio _clientes,
             int? skip,

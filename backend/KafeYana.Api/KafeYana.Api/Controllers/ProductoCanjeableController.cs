@@ -1,4 +1,4 @@
-using KafeYana.Application.Dtos.HitoCompraDtos;
+﻿using KafeYana.Application.Dtos.HitoCompraDtos;
 using KafeYana.Application.Dtos.ProductoCanjeable;
 using KafeYana.Application.Dtos.PromocionTemporadaDtos;
 using KafeYana.Application.Exceptions;
@@ -14,7 +14,6 @@ namespace KafeYana.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = $"{RolesKafe.Admin}, {RolesKafe.Cajero}")]
     public class ProductoCanjeableController(
         IUnitWork _db,
         ICanjeProductoService _canjeProducto,

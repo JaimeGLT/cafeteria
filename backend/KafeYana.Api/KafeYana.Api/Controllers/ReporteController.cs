@@ -1,4 +1,4 @@
-using KafeYana.Api.Reportes;
+﻿using KafeYana.Api.Reportes;
 using KafeYana.Domain.TiposDeDatos;
 using KafeYana.Infrastructure.Servicios;
 using Microsoft.AspNetCore.Authorization;
@@ -9,7 +9,6 @@ namespace KafeYana.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = $"{RolesKafe.Admin}, {RolesKafe.Cajero}")]
     public class ReporteController(
         ReporteInventarioService _reporteInventario,
         ReporteCajaService _reporteCaja,

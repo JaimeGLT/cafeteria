@@ -4,7 +4,7 @@ import { Modal } from '../ui/Modal';
 import { Button } from '../ui/Button';
 import { Input } from '../ui/Input';
 import { SearchableSelect } from '../ui/Select';
-import { ImageUploadField } from '../ui/ImageUpload';
+import { ImageReadOnlyField } from '../ui/ImageUpload';
 import { HelpTooltip } from '../ui/Tooltip';
 import { toast } from '../ui/Toast';
 import { api } from '../../lib/api';
@@ -40,7 +40,6 @@ export const ComboModal: React.FC<Props> = ({ isOpen, onClose, combo, products, 
   const [rawPrice, setRawPrice] = useState('');
   const [codigoSin, setCodigoSin] = useState('');
   const [existingImageUrl, setExistingImageUrl] = useState<string | undefined>(undefined);
-  const [imageFile, setImageFile] = useState<File | null>(null);
   const [items, setItems] = useState<ComboLine[]>([{ productId: '', quantity: 1 }]);
 
   // Products that can be in a combo (not another combo)
@@ -79,7 +78,6 @@ export const ComboModal: React.FC<Props> = ({ isOpen, onClose, combo, products, 
       setExistingImageUrl(undefined);
       setItems([{ productId: '', quantity: 1 }]);
     }
-    setImageFile(null);
   }, [combo, isOpen]);
 
   // Live cost calculation
@@ -141,7 +139,6 @@ export const ComboModal: React.FC<Props> = ({ isOpen, onClose, combo, products, 
       if (description.trim()) fd.append('Descripcion', description.trim());
       fd.append('Precio', String(comboPrice));
       fd.append('CodigoSin', codigoSin.trim());
-      if (imageFile) fd.append('Imagen', imageFile);
       items.forEach((item, i) => {
         fd.append(`Productos[${i}].ProductoId`, item.productId);
         fd.append(`Productos[${i}].Cantidad`, String(item.quantity));
@@ -244,7 +241,7 @@ export const ComboModal: React.FC<Props> = ({ isOpen, onClose, combo, products, 
         {/* Foto */}
         <div>
           <label className="text-sm font-medium text-coffee-700 mb-1 block">Foto del combo</label>
-          <ImageUploadField existingUrl={existingImageUrl} key={existingImageUrl} onChange={setImageFile} />
+          <ImageReadOnlyField existingUrl={existingImageUrl} />
         </div>
 
         {/* Items table */}

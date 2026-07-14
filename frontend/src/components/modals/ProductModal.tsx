@@ -24,12 +24,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
   isLoadingDetail = false,
 }) => {
   const [isLoading, setIsLoading] = React.useState(false);
-  const [imageFile, setImageFile] = React.useState<File | null>(null);
   const toast = useToast();
-
-  React.useEffect(() => {
-    if (isOpen) setImageFile(null);
-  }, [isOpen]);
 
   const handleSubmit = async (data: ProductInput) => {
     setIsLoading(true);
@@ -49,7 +44,6 @@ export const ProductModal: React.FC<ProductModalProps> = ({
       fd.append('Stock_minimo', String(data.minStock ?? 0));
       fd.append('Disponible', String(data.isActive ?? true));
       fd.append('CodigoSin', data.codigoSin ?? '');
-      if (imageFile) fd.append('Imagen', imageFile);
 
       if (product) {
         await api.putForm(`/Producto/${product.id}`, fd);
@@ -85,7 +79,6 @@ export const ProductModal: React.FC<ProductModalProps> = ({
           brands={[]}
           locations={[]}
           onSubmit={handleSubmit}
-          onImageChange={setImageFile}
           onCancel={onClose}
           isLoading={isLoading}
           hideTipo

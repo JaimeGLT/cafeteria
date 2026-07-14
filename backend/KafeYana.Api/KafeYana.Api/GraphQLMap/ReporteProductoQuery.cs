@@ -1,4 +1,4 @@
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using HotChocolate.Authorization;
 using KafeYana.Application.Dtos.ReporteDtos;
@@ -13,7 +13,6 @@ namespace KafeYana.Api.GraphQLMap
     [ExtendObjectType("Query")]
     public class ReporteProductoQuery
     {
-        [Authorize(Roles = new[] { RolesKafe.Admin, RolesKafe.Cajero })]
         public Task<DtoReporteMensualProductos> ReporteProductosMensual(
             [Service] ReporteProductosService _service,
             int? mes = null,

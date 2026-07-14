@@ -1,4 +1,4 @@
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using HotChocolate.Authorization;
 using KafeYana.Api.Helpers;
@@ -14,7 +14,6 @@ namespace KafeYana.Api.GraphQLMap
         [UseProjection]
         [UseSorting]
         [UseFiltering]
-        [Authorize(Roles = new[] { RolesKafe.Admin, RolesKafe.Mesero, RolesKafe.Cajero })]
         public Task<OffsetPage<ProductoMovimiento>> MovimientoProducto(
             [Service] IProductoMovimientoRepositorio _db,
             int Id,

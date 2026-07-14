@@ -1,7 +1,5 @@
-import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react';
-import { api, ApiError } from '../lib/api';
-import { gql } from '../lib/graphql';
-import { ME_QUERY } from '../lib/queries/auth.queries';
+import { createContext, useContext, type ReactNode } from 'react';
+import { ApiError } from '../lib/api';
 import type { SessionUser } from '../types/user';
 
 interface AuthState {
@@ -17,68 +15,26 @@ interface AuthContextType extends AuthState {
   refreshUser: () => Promise<void>;
 }
 
+const GUEST_USER: SessionUser = { nombre: 'Invitado', email: '', rol: 'admin' };
+
 const AuthContext = createContext<AuthContextType | null>(null);
 
+// Portfolio demo: sin login, todos los usuarios tienen permisos de admin.
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [state, setState] = useState<AuthState>({
-    user: null,
-    isAuthenticated: false,
-    isCheckingSession: true,
-  });
-
-  const checkSession = useCallback(async () => {
-    try {
-      const data = await gql<{ me: SessionUser }>(ME_QUERY);
-      if (data?.me?.nombre && data?.me?.rol) {
-        setState({ user: data.me, isAuthenticated: true, isCheckingSession: false });
-      } else {
-        setState({ user: null, isAuthenticated: false, isCheckingSession: false });
-      }
-    } catch {
-      setState({ user: null, isAuthenticated: false, isCheckingSession: false });
-    }
-  }, []);
-
-  const refreshUser = useCallback(async () => {
-    try {
-      await api.post('/Aunth/RefreshToken');
-      const data = await gql<{ me: SessionUser }>(ME_QUERY);
-      if (data?.me?.nombre && data?.me?.rol) {
-        setState((prev) => ({ ...prev, user: data.me, isAuthenticated: true }));
-      }
-    } catch {
-    }
-  }, []);
-
-  const login = useCallback(async (identificador: string, password: string) => {
-    await api.post('/Aunth/Login', { identificador, password });
-    await refreshUser();
-  }, [refreshUser]);
-
-  const logout = useCallback(async () => {
-    try {
-      await api.post('/Aunth/Logout');
-    } catch {
-      // ignorar errores de logout
-    } finally {
-      setState({ user: null, isAuthenticated: false, isCheckingSession: false });
-    }
-  }, []);
-
-  useEffect(() => {
-    checkSession();
-  }, [checkSession]);
-
-  useEffect(() => {
-    const handleUnauthorized = () => {
-      setState({ user: null, isAuthenticated: false, isCheckingSession: false });
-    };
-    window.addEventListener('auth:unauthorized', handleUnauthorized);
-    return () => window.removeEventListener('auth:unauthorized', handleUnauthorized);
-  }, []);
+  const noop = async () => {};
 
   return (
-    <AuthContext.Provider value={{ ...state, login, logout, checkSession, refreshUser }}>
+    <AuthContext.Provider
+      value={{
+        user: GUEST_USER,
+        isAuthenticated: true,
+        isCheckingSession: false,
+        login: noop,
+        logout: noop,
+        checkSession: noop,
+        refreshUser: noop,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

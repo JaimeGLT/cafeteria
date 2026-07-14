@@ -24,7 +24,6 @@ namespace KafeYana.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = $"{RolesKafe.Admin}, {RolesKafe.Cajero}, {RolesKafe.Mesero}")]
     public class VentaController(IUnitWork _db, Detalle_RondaService _detalleRondaService, IRondaPedidoService _rondaPedidoService, ICobroPedidoService _cobroPedido, IFacturaSiatEnvioService _facturaSiatEnvio, IKafeYanaNotificador _notificador, StockPayloadService _stockService) : ControllerBase
     {
         [HttpPost("pedido")]
@@ -248,7 +247,6 @@ namespace KafeYana.Api.Controllers
         }
 
         [HttpPost("{id:int}/enviar-siat")]
-        [Authorize(Roles = $"{RolesKafe.Admin}, {RolesKafe.Cajero}")]
         public async Task<IActionResult> EnviarSiat(int id)
         {
             var envioSiat = await _facturaSiatEnvio.ReenviarFacturaAsync(id);

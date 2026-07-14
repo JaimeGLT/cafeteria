@@ -1,4 +1,4 @@
-using KafeYana.Application.Dtos.FacturacionDtos;
+﻿using KafeYana.Application.Dtos.FacturacionDtos;
 using KafeYana.Application.Exceptions;
 using KafeYana.Application.IServicios.IFacturacion;
 using KafeYana.Domain.TiposDeDatos;
@@ -25,7 +25,6 @@ namespace KafeYana.Api.Controllers
     /// </summary>
     [ApiController]
     [Route("api/evento-significativo")]
-    [Authorize(Roles = $"{RolesKafe.Admin}, {RolesKafe.Cajero}")]
     public class EventoSignificativoController : ControllerBase
     {
         private readonly IEventoSignificativoSiatService _service;

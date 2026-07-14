@@ -1,4 +1,4 @@
-using KafeYana.Application.Dtos.FacturacionDtos;
+﻿using KafeYana.Application.Dtos.FacturacionDtos;
 using KafeYana.Application.IRepositorio;
 using KafeYana.Application.IServicios.IFacturacion;
 using KafeYana.Domain.Entities.Facturacion;
@@ -23,7 +23,6 @@ namespace KafeYana.Api.Controllers
     /// </summary>
     [ApiController]
     [Route("api/contingencia")]
-    [Authorize]
     public class ContingenciaEstadoController : ControllerBase
     {
         private readonly IUnitWork _unit;

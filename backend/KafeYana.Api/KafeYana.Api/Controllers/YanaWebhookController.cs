@@ -8,7 +8,6 @@ namespace YanaBot.Api.Controllers;
 
 [ApiController]
 [Route("api/yana")]
-[Authorize(Roles = $"{RolesKafe.Admin}, {RolesKafe.Cajero}")]
 public class YanaWebhookController : ControllerBase
 {
     private readonly YanaBotService _yanaBotService;

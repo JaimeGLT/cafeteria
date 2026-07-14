@@ -1,4 +1,4 @@
-using HotChocolate.Authorization;
+﻿using HotChocolate.Authorization;
 using KafeYana.Api.Helpers;
 using KafeYana.Application.IRepositorio;
 using KafeYana.Domain.Entities.Inventario;
@@ -21,7 +21,6 @@ namespace KafeYana.Api.GraphQLMap
         ///   - Receta + Detalles + Insumo  (para KPIs y modal de receta)
         ///   - Variaciones + Opciones       (para el catálogo de POS)
         /// </summary>
-        [Authorize(Roles = new[] { RolesKafe.Admin, RolesKafe.Mesero, RolesKafe.Cajero })]
         public Task<OffsetPage<Elaborado>> elaborados(
             [Service] IElaboradoRepositorio _db,
             int? skip,

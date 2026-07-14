@@ -30,7 +30,6 @@ namespace KafeYana.Api.Controllers
 
     [ApiController]
 
-    [Authorize(Roles = $"{RolesKafe.Admin}, {RolesKafe.Cajero}")]
 
     public class AjusteStockController(IUnitWork _db) : ControllerBase
 

@@ -1,4 +1,4 @@
-using KafeYana.Api.Filters;
+﻿using KafeYana.Api.Filters;
 using KafeYana.Application.Dtos.FacturacionDtos;
 using KafeYana.Application.Dtos.VentaDtos;
 using KafeYana.Application.Exceptions;
@@ -13,7 +13,6 @@ namespace KafeYana.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = $"{RolesKafe.Admin}, {RolesKafe.Cajero}, {RolesKafe.Mesero}")]
     public class SubVentaController(
         ISubVentaService _subVenta,
         IUnitWork _db,
@@ -62,7 +61,6 @@ namespace KafeYana.Api.Controllers
         /// documento fiscal ya emitido, solo se anula y reemite).
         /// </summary>
         [HttpPost("{id:int}/anular")]
-        [Authorize(Roles = $"{RolesKafe.Admin}, {RolesKafe.Cajero}")]
         public async Task<IActionResult> Anular(int id, [FromBody] DtoAnularFactura dto, CancellationToken ct)
         {
             var subVenta = await _db.subventas.FindByIdAsync(id)

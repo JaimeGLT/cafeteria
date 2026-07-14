@@ -1,4 +1,4 @@
-using KafeYana.Application.Dtos.PromocionPermanenteDtos;
+﻿using KafeYana.Application.Dtos.PromocionPermanenteDtos;
 
 using KafeYana.Application.Exceptions;
 
@@ -36,7 +36,6 @@ namespace KafeYana.Api.Controllers
 
         [HttpGet("descuentos-pedido")]
 
-        [Authorize(Roles = $"{RolesKafe.Admin}, {RolesKafe.Cajero}, {RolesKafe.Mesero}")]
 
         public async Task<IActionResult> ObtenerDescuentosPedido(
 
@@ -62,7 +61,6 @@ namespace KafeYana.Api.Controllers
 
         [HttpPost]
 
-        [Authorize(Roles = RolesKafe.Admin)]
 
         public async Task<IActionResult> Crear(DtoPromocionPermanenteCU datos)
 
@@ -118,7 +116,6 @@ namespace KafeYana.Api.Controllers
 
         [HttpPut("{id:int}")]
 
-        [Authorize(Roles = RolesKafe.Admin)]
 
         public async Task<IActionResult> Actualizar(int id, DtoPromocionPermanenteCU datos)
 
@@ -174,7 +171,6 @@ namespace KafeYana.Api.Controllers
 
         [HttpDelete("{id:int}")]
 
-        [Authorize(Roles = RolesKafe.Admin)]
 
         public async Task<IActionResult> Eliminar(int id)
 

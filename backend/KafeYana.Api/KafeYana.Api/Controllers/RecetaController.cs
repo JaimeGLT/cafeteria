@@ -12,7 +12,6 @@ namespace KafeYana.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = $"{RolesKafe.Admin}, {RolesKafe.Cajero}")]
     public class RecetaController(IRecetaRepositorio _db) : ControllerBase
     {
         [HttpPost]

@@ -20,12 +20,9 @@ using KafeYana.Infrastructure.Servicios.PromocionesPermanentes;
 using KafeYana.Infrastructure.Servicios.PromocionesTemporada;
 using KafeYana.Infrastructure.Servicios.HitosCompra;
 using Mapster;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using Scalar.AspNetCore;
-using System.Text;
 using KafeYana.Infrastructure;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using Query = KafeYana.Api.GraphQLMap.Query;
@@ -73,48 +70,9 @@ builder.Services.AddIdentityCore<Usuario>(options =>
 .AddSignInManager()
 .AddDefaultTokenProviders();
 
-//Configuracion jwt refreshtoken
-
-builder.Services.AddAuthentication(opt =>
-{
-    opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    opt.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(opy =>
-{
-    var jwtop = builder.Configuration.GetSection(JwtOptions.JwtOptionsKey)
-    .Get<JwtOptions>() ?? throw new ArgumentException(nameof(JwtOptions));
-
-    opy.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        ValidIssuer = jwtop.Issuer,
-        ValidAudience = jwtop.Audience,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtop.Secret))
-    };
-
-
-    opy.Events = new JwtBearerEvents
-    {
-        OnMessageReceived = Context =>
-        {
-            if (!Context.Request.Path.StartsWithSegments("/api/Aunth/RefreshToken"))
-            {
-                Context.Token = Context.Request.Cookies["ACCESS_TOKEN"];
-            }
-            return Task.CompletedTask;
-        }
-    };
-});
-
 builder.Services.AddSignalR();
 
 builder.Services.AddMapster();
-
-builder.Services.AddAuthorization();
 
 builder.Services.AddExceptionHandler<ExceptionGlobal>();
 
@@ -200,7 +158,6 @@ builder.Services.AddGraphQLServer()
     .AddFiltering<CaseInsensitiveFilteringConvention>()
     .AddProjections()
     .AddSorting()
-    .AddAuthorization()
     .AddTypeExtension<ProveedorQuery>()
     .AddTypeExtension<ReporteCajaQuery>()
     .AddTypeExtension<ReporteProductoQuery>()
@@ -327,12 +284,6 @@ app.UseExceptionHandler( _ => { });
 app.UseHttpsRedirection();
 
 app.UseCors("CorsPoliticy");
-
-app.UseAuthentication();
-
-app.UseAuthorization();
-
-app.UseMiddleware<VerificarBloqueoMiddleware>();
 
 app.MapControllers();
 app.MapHub<KafeYanaHub>("/hubs/kafayana");

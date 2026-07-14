@@ -1,4 +1,4 @@
-using KafeYana.Application.Dtos.ReferidosDtos;
+﻿using KafeYana.Application.Dtos.ReferidosDtos;
 using KafeYana.Application.Exceptions;
 using KafeYana.Application.IRepositorio;
 using KafeYana.Domain.Entities;
@@ -15,7 +15,6 @@ namespace KafeYana.Api.Controllers
     {
         /// <summary>Fila única de configuración (creada por seed). Solo lectura.</summary>
         [HttpGet("config")]
-        [Authorize(Roles = RolesKafe.Admin)]
         public async Task<IActionResult> ObtenerConfig()
         {
             var cfg = await _db.referidosConfig.ObtenerUnicaAsync();
@@ -33,7 +32,6 @@ namespace KafeYana.Api.Controllers
 
         /// <summary>Actualiza puntos y estado activo. No hay alta manual ni borrado.</summary>
         [HttpPut("config")]
-        [Authorize(Roles = RolesKafe.Admin)]
         public async Task<IActionResult> ActualizarConfig(DtoReferidosConfigUpdate datos)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -53,7 +51,6 @@ namespace KafeYana.Api.Controllers
 
         /// <summary>Crea el nuevo cliente (referido) con los mismos datos que POST Cliente + IdReferidor. Si el programa está activo, suma puntos según config y registra historial.</summary>
         [HttpPost("cliente")]
-        [Authorize(Roles = $"{RolesKafe.Admin}, {RolesKafe.Cajero}")]
         public async Task<IActionResult> CrearClienteReferido(DtoClienteReferidoCU datos)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);

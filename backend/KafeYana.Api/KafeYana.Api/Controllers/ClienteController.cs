@@ -18,7 +18,6 @@ namespace KafeYana.Api.Controllers
     {
 
         [HttpPost]
-        [Authorize(Roles = $"{RolesKafe.Admin}, {RolesKafe.Cajero}")]
         public async Task<IActionResult> Crear(DtoClienteCU datos)
         {
             if(!ModelState.IsValid) return BadRequest(ModelState);
@@ -39,7 +38,6 @@ namespace KafeYana.Api.Controllers
         }
 
         [HttpPut("{Id:int}")]
-        [Authorize(Roles = $"{RolesKafe.Admin}, {RolesKafe.Cajero}")]
         public async Task<IActionResult> Editar(int Id, DtoClienteCU datos)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -57,7 +55,6 @@ namespace KafeYana.Api.Controllers
         }
 
         [HttpDelete("{Id:int}")]
-        [Authorize(Roles = $"{RolesKafe.Admin}")]
         public async Task<IActionResult> Delete(int Id)
         {
 

@@ -1,4 +1,4 @@
-using KafeYana.Api.Filters;
+﻿using KafeYana.Api.Filters;
 using KafeYana.Api.Helpers;
 using KafeYana.Api.Hubs;
 using KafeYana.Application.Dtos.VentaDtos;
@@ -12,7 +12,6 @@ namespace KafeYana.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = $"{RolesKafe.Admin}, {RolesKafe.Cajero}, {RolesKafe.Mesero}")]
     public class PedidoController(
         ICobroPedidoService _cobroPedido,
         IKafeYanaNotificador _notificador) : ControllerBase

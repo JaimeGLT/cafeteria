@@ -1,4 +1,4 @@
-using KafeYana.Application.IServicios.IFacturacion;
+﻿using KafeYana.Application.IServicios.IFacturacion;
 using KafeYana.Domain.Entities.Catalogos;
 using KafeYana.Domain.TiposDeDatos;
 using KafeYana.Infrastructure.Data;
@@ -26,7 +26,6 @@ namespace KafeYana.Api.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = $"{RolesKafe.Admin}, {RolesKafe.Cajero}, {RolesKafe.Mesero}")]
     public class PuntoVentaSiatController : ControllerBase
     {
         private readonly IDbContextFactory<AppDbContext> _dbFactory;
@@ -226,7 +225,6 @@ namespace KafeYana.Api.Controllers
         /// no manda &lt;cafc&gt; en el sobre SOAP para ese PV hasta que se cargue uno).
         /// </summary>
         [HttpPatch("{codigoSucursal:int}/{codigoPuntoVenta:int}/cafc")]
-        [Authorize(Roles = RolesKafe.Admin)]
         public async Task<IActionResult> ActualizarCafc(
             int codigoSucursal,
             int codigoPuntoVenta,

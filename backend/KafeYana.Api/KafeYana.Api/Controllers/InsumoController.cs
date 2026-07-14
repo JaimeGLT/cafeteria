@@ -13,10 +13,8 @@ namespace KafeYana.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = $"{RolesKafe.Admin}, {RolesKafe.Cajero}")]
     public class InsumoController(IInsumoRepositorio _db) : ControllerBase
     {
-        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Crear(DtoInsumosCrear datos)
         {
@@ -31,7 +29,6 @@ namespace KafeYana.Api.Controllers
             return Created("", new { message = "Insumo creado"});
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpPut("{Id:int}")]
 
         public async Task<IActionResult> Update(DtoInsumosCrear datos, int Id)
@@ -50,7 +47,6 @@ namespace KafeYana.Api.Controllers
 
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpDelete("{Id:int}")]
         public async Task<IActionResult> Delete(int Id)
         {

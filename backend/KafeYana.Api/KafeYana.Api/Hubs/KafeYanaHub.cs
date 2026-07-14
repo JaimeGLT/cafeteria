@@ -1,9 +1,8 @@
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
 namespace KafeYana.Api.Hubs
 {
-    [Authorize]
     public class KafeYanaHub : Hub
     {
         private static readonly string[] GruposPermitidos = ["salon", "caja"];

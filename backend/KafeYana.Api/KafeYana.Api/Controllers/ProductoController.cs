@@ -1,22 +1,19 @@
 ﻿using KafeYana.Application.Dtos.CompradoDtos;
 using KafeYana.Application.IRepositorio;
-using KafeYana.Application.IServicios;
 using KafeYana.Domain.TiposDeDatos;
 using KafeYana.Infrastructure.Servicios.Facturacion;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KafeYana.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(Roles = $"{RolesKafe.Admin}")]
-    public class ProductoController(IProductoRepositorio _producto, IProductoImagenService _imagenService) : ControllerBase
+    public class ProductoController(IProductoRepositorio _producto) : ControllerBase
     {
 
         [HttpPost]
         [Consumes("multipart/form-data")]
-        public async Task<IActionResult> Crear([FromForm] DtoCompradoCrear datos, IFormFile? Imagen)
+        public async Task<IActionResult> Crear([FromForm] DtoCompradoCrear datos)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
@@ -30,9 +27,6 @@ namespace KafeYana.Api.Controllers
 
             var producto = datos.ProductoCrear();
 
-            if (Imagen is not null && Imagen.Length > 0)
-                producto.UrlImagen = await _imagenService.ProcesarSubidaAsync(Imagen, datos.Nombre, datos.Categoria_Id);
-
             await _producto.Crear(producto);
             await _producto.SaveAsync();
 
@@ -44,7 +38,7 @@ namespace KafeYana.Api.Controllers
 
         [HttpPut("{Id:int}")]
         [Consumes("multipart/form-data")]
-        public async Task<IActionResult> Update(int Id, [FromForm] DtoCompradoCrear datos, IFormFile? Imagen)
+        public async Task<IActionResult> Update(int Id, [FromForm] DtoCompradoCrear datos)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
@@ -63,12 +57,6 @@ namespace KafeYana.Api.Controllers
 
             datos.Editar(productoDb);
 
-            if (Imagen is not null)
-            {
-                await _imagenService.EliminarSiExisteAsync(productoDb.UrlImagen);
-                productoDb.UrlImagen = await _imagenService.ProcesarSubidaAsync(Imagen, datos.Nombre, datos.Categoria_Id);
-            }
-
             await _producto.SaveAsync();
 
             return Ok(new { message = "Producto actualizado" });
@@ -80,8 +68,6 @@ namespace KafeYana.Api.Controllers
             var producto = await _producto.FindByIdAsync(Id);
 
             if (producto is null) return NotFound(new { message = "Producto no encontrado" });
-
-            await _imagenService.EliminarSiExisteAsync(producto.UrlImagen);
 
             await _producto.Remove(producto);
             await _producto.SaveAsync();

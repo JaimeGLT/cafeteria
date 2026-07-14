@@ -1,4 +1,4 @@
-using KafeYana.Application.Dtos.FacturacionDtos;
+﻿using KafeYana.Application.Dtos.FacturacionDtos;
 using KafeYana.Application.Exceptions;
 using KafeYana.Application.IRepositorio;
 using KafeYana.Application.IServicios.IFacturacion;
@@ -38,7 +38,6 @@ namespace KafeYana.Api.Controllers
         /// La venta original NO se modifica. Devuelve el resultado del envío.
         /// </summary>
         [HttpPost]
-        [Authorize(Roles = $"{RolesKafe.Admin}, {RolesKafe.Cajero}")]
         public async Task<IActionResult> EmitirNota(
             [FromBody] DtoCrearNotaAjuste dto,
             CancellationToken ct)
@@ -71,7 +70,6 @@ namespace KafeYana.Api.Controllers
 
         /// <summary>Reenvía al SIAT una nota pendiente u observada.</summary>
         [HttpPost("{id:int}/reenviar")]
-        [Authorize(Roles = $"{RolesKafe.Admin}, {RolesKafe.Cajero}")]
         public async Task<IActionResult> ReenviarNota(int id, CancellationToken ct)
         {
             try
@@ -99,7 +97,6 @@ namespace KafeYana.Api.Controllers
 
         /// <summary>Obtiene una nota con sus detalles.</summary>
         [HttpGet("{id:int}")]
-        [Authorize(Roles = $"{RolesKafe.Admin}, {RolesKafe.Cajero}")]
         public async Task<IActionResult> Obtener(int id)
         {
             var nota = await _db.notasAjuste.TraerNotaAjusteConDetallesAsync(id);
@@ -111,7 +108,6 @@ namespace KafeYana.Api.Controllers
 
         /// <summary>Lista todas las notas asociadas a una venta (más recientes primero).</summary>
         [HttpGet("por-venta/{ventaId:int}")]
-        [Authorize(Roles = $"{RolesKafe.Admin}, {RolesKafe.Cajero}")]
         public async Task<IActionResult> ListarPorVenta(int ventaId)
         {
             var notas = await _db.notasAjuste.ListarPorVentaAsync(ventaId);
@@ -144,7 +140,6 @@ namespace KafeYana.Api.Controllers
         /// Solo aplica a notas en estado Validada y que no hayan revertido su anulación.
         /// </summary>
         [HttpPost("anular/{id:int}")]
-        [Authorize(Roles = $"{RolesKafe.Admin}, {RolesKafe.Cajero}")]
         public async Task<IActionResult> AnularNota(
             int id,
             [FromBody] DtoAnularNotaAjuste dto,
@@ -188,7 +183,6 @@ namespace KafeYana.Api.Controllers
         /// Solo permitido una vez por nota.
         /// </summary>
         [HttpPost("revertir-anulacion/{id:int}")]
-        [Authorize(Roles = $"{RolesKafe.Admin}, {RolesKafe.Cajero}")]
         public async Task<IActionResult> RevertirAnulacionNota(int id, CancellationToken ct)
         {
             try

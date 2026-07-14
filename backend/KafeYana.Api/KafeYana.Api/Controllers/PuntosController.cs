@@ -1,4 +1,4 @@
-using KafeYana.Application.Dtos.PuntosDtos;
+﻿using KafeYana.Application.Dtos.PuntosDtos;
 using KafeYana.Application.IRepositorio;
 using KafeYana.Domain.Entities;
 using KafeYana.Domain.TiposDeDatos;
@@ -14,7 +14,6 @@ namespace KafeYana.Api.Controllers
         // ─── Configuración: Regla base ────────────────────────────────────────
 
         [HttpGet("config/reglabase")]
-        [Authorize(Roles = $"{RolesKafe.Admin}, {RolesKafe.Cajero}")]
         public async Task<IActionResult> ObtenerReglaBase()
         {
             var regla = await _db.reglaBasePuntos.ObtenerReglaAsync();
@@ -25,7 +24,6 @@ namespace KafeYana.Api.Controllers
         }
 
         [HttpPost("config/reglabase")]
-        [Authorize(Roles = $"{RolesKafe.Admin}, {RolesKafe.Cajero}")]
         public async Task<IActionResult> CrearReglaBase(DtoReglaBaseUpdate datos)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -42,7 +40,6 @@ namespace KafeYana.Api.Controllers
         }
 
         [HttpPut("config/reglabase")]
-        [Authorize(Roles = $"{RolesKafe.Admin}, {RolesKafe.Cajero}")]
         public async Task<IActionResult> ActualizarReglaBase(DtoReglaBaseUpdate datos)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -62,7 +59,6 @@ namespace KafeYana.Api.Controllers
         // ─── Configuración: Aceleradores ──────────────────────────────────────
 
         [HttpGet("config/aceleradores")]
-        [Authorize(Roles = $"{RolesKafe.Admin}, {RolesKafe.Cajero}")]
         public async Task<IActionResult> ObtenerAceleradores()
         {
             var lista = await _db.aceleradores.ObtenerTodosAsync();
@@ -81,7 +77,6 @@ namespace KafeYana.Api.Controllers
         }
 
         [HttpPut("config/aceleradores/{id:int}")]
-        [Authorize(Roles = RolesKafe.Admin)]
         public async Task<IActionResult> ActualizarAcelerador(int id, DtoAceleradorUpdate datos)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -110,7 +105,6 @@ namespace KafeYana.Api.Controllers
         // ─── Ajuste manual de puntos (solo Admin) ────────────────────────────
 
         [HttpPost("cliente/{clienteId:int}/ajuste")]
-        [Authorize(Roles = RolesKafe.Admin)]
         public async Task<IActionResult> AjusteManual(int clienteId, DtoAjusteManualPuntos datos)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);

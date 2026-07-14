@@ -1,4 +1,4 @@
-using KafeYana.Application.Dtos.ProveedorDtos;
+﻿using KafeYana.Application.Dtos.ProveedorDtos;
 using KafeYana.Application.IRepositorio;
 using KafeYana.Domain.Entities;
 using KafeYana.Domain.TiposDeDatos;
@@ -10,7 +10,6 @@ namespace KafeYana.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = $"{RolesKafe.Admin}")]
     public class ProveedorController(IProveedorRepositorio _proveedor) : ControllerBase
     {
 

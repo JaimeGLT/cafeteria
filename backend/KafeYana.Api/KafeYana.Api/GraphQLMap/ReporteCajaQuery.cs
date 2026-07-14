@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
 using HotChocolate.Authorization;
@@ -15,7 +15,6 @@ namespace KafeYana.Api.GraphQLMap
     [ExtendObjectType("Query")]
     public class ReporteCajaQuery
     {
-        [Authorize(Roles = new[] { RolesKafe.Admin, RolesKafe.Cajero })]
         public Task<DtoReporteDiarioCaja> ReporteCajaDiario(
             [Service] ReporteCajaService _service,
             DateTime? fecha = null,

@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using HotChocolate.Authorization;
@@ -19,7 +19,6 @@ namespace KafeYana.Api.GraphQLMap
         /// evitando el problema de HotChocolate v15 donde [UseFiltering]/[UseSorting] generan
         /// tipos para OffsetPage&lt;T&gt; en lugar de para T.
         /// </summary>
-        [Authorize(Roles = new[] { RolesKafe.Admin, RolesKafe.Mesero, RolesKafe.Cajero })]
         public Task<OffsetPage<Comprado>> comprados(
             [Service] IProductoRepositorio _db,
             int? skip,

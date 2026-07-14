@@ -2,7 +2,7 @@ import React from 'react';
 import type { Product, ProductInput, ProductTipo, ProductDestino, Category, Brand, Location, Receta } from '../../types';
 import { Form, FormField, FormRow, FormActions } from './FormField';
 import { Input, Textarea, Select, SearchableSelect } from '../ui';
-import { Button, ImageUploadField } from '../ui';
+import { Button, ImageReadOnlyField } from '../ui';
 import { AlertTriangle, BookOpen, Layers, Plus, Pencil } from 'lucide-react';
 import { formatCurrency } from '../../utils';
 import { CategoryModal } from '../modals/CategoryModal';
@@ -18,7 +18,6 @@ interface ProductFormProps {
   locations: Location[];
   recetaExistente?: Receta;
   onSubmit: (data: ProductInput) => void;
-  onImageChange?: (file: File | null) => void;
   onCancel: () => void;
   isLoading?: boolean;
   hideTipo?: boolean;
@@ -44,7 +43,6 @@ export const ProductForm: React.FC<ProductFormProps> = ({
   locations,
   recetaExistente,
   onSubmit,
-  onImageChange,
   onCancel,
   isLoading = false,
   hideTipo = false,
@@ -198,9 +196,8 @@ export const ProductForm: React.FC<ProductFormProps> = ({
 
         {/* Foto */}
         <FormField label="Foto del producto">
-          <ImageUploadField
+          <ImageReadOnlyField
             existingUrl={product?.image?.startsWith('http') || product?.image?.startsWith('data:') || product?.image?.startsWith('blob:') ? product.image : undefined}
-            onChange={onImageChange}
           />
         </FormField>
 

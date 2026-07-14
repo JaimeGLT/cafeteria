@@ -4,7 +4,7 @@ import { FlaskConical, ArrowRight, CheckCircle2, Plus, Info } from 'lucide-react
 import { Button } from '../ui/Button';
 import { Input } from '../ui/Input';
 import { SearchableSelect, Select } from '../ui/Select';
-import { ImageUploadField } from '../ui/ImageUpload';
+import { ImageReadOnlyField } from '../ui/ImageUpload';
 import { HelpTooltip } from '../ui/Tooltip';
 import { RecetaFormContent } from './RecetaModal';
 import { CategoryModal } from './CategoryModal';
@@ -63,7 +63,6 @@ export const EditElaboradoModal: React.FC<EditElaboradoModalProps> = ({
   const [destino, setDestino] = useState<ProductDestino>(product.destino ?? 'sin_destino');
   const [codigoSin, setCodigoSin] = useState(product.codigoSin || '');
   const [isCodigoSinModalOpen, setIsCodigoSinModalOpen] = useState(false);
-  const [imageFile, setImageFile] = useState<File | null>(null);
   const existingImageUrl = product.image?.startsWith('http') || product.image?.startsWith('data:') || product.image?.startsWith('blob:') ? product.image : undefined;
 
   useEffect(() => {
@@ -76,7 +75,6 @@ export const EditElaboradoModal: React.FC<EditElaboradoModalProps> = ({
       setUnit(product.unit || DEFAULT_UNIT);
       setDestino(product.destino ?? 'sin_destino');
       setCodigoSin(product.codigoSin || '');
-      setImageFile(null);
       setErrors({});
       setLocalCategoryOptions(categoryOptions);
       setIsLoadingData(true);
@@ -123,7 +121,6 @@ export const EditElaboradoModal: React.FC<EditElaboradoModalProps> = ({
       fd.append('CodigoSin', codigoSin.trim());
       const ubicacion = destino === 'barra' ? 'Barra' : destino === 'cocina' ? 'Cocina' : '';
       if (ubicacion) fd.append('Ubicacion', ubicacion);
-      if (imageFile) fd.append('Imagen', imageFile);
       await api.putForm(`/Elaborado/${product.id}`, fd);
       const catName = categoryOptions.find((o) => o.value === categoryId)?.label ?? '';
       const updated = { ...product, name: name.trim(), description: description.trim(), salePrice: Number(salePrice), categoryId, categoryName: catName, unit };
@@ -286,7 +283,7 @@ export const EditElaboradoModal: React.FC<EditElaboradoModalProps> = ({
               {/* Foto */}
               <div>
                 <label className="text-sm font-medium text-coffee-700 mb-1 block">Foto del producto</label>
-                <ImageUploadField existingUrl={existingImageUrl} key={existingImageUrl} onChange={setImageFile} />
+                <ImageReadOnlyField existingUrl={existingImageUrl} />
               </div>
 
               {/* Preparation type */}
